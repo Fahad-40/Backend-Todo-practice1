@@ -20,8 +20,41 @@ async function getAllTasks(req, res) {
 
 async function getTaskById(req , res) {
     
-    let task = tasks.findBy
+    let task = await tasks.findById(req.params.id);
+
+    if(!task){
+        res.status(404).send("Task Not Found!")
+    }
+    res.send(task)
 
 }
 
-module.exports = {createTodo , getAllTasks}
+async function updateTask(req , res) {
+    
+    let task = await tasks.findByIdAndUpdate(
+        req.params.id,
+        {title: req.body.title  , completed: req.body.completed},
+        { returnDocument: 'after' } 
+    );
+
+   if(!task){
+    res.status(404).send("Task not Found!!")
+   }
+
+   res.send("Task Updated" , task)
+}
+
+async function deletTaskbyId(req , res) {
+    
+    let task = await tasks.findByIdAndDelete(req.params.id);
+
+    if(!task){
+        res.status(404).send("Task Not Found!")
+    }
+    res.send({message: "Task deleted:" , task})
+
+}
+
+
+
+module.exports = {createTodo , getAllTasks , getTaskById , updateTask , deletTaskbyId}

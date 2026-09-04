@@ -1,6 +1,5 @@
 let users = require("../Models/UserModel")
 
-
 async function createUser(req , res) {
     
 let {userName , email} = req.body;

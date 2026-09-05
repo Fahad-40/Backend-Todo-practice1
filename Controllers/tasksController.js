@@ -52,8 +52,11 @@ try{
     if(!task){
         res.status(404).send("Task Not Found!")
     }
-    
-    res.send({message: "Task deleted:" , task})
+    else{
+        res.send({message: "Task deleted:" , task})
+
+    }
+
 }
 catch (error){
 res.status(500).json({message: error.message})

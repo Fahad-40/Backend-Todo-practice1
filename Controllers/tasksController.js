@@ -53,7 +53,7 @@ try{
         res.status(404).send("Task Not Found!")
     }
     else{
-        res.send({message:"Task deleted:" , task})
+        res.send({message: "Task deleted:" , task})
 
     }
 

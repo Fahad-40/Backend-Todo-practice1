@@ -1,13 +1,15 @@
 let tasks = require("../Models/tasksModel")
+let taskValidationSchema = require("../Validator/taskValidator");
 
 async function createTodo(req, res) {
+
+let {error} = taskValidationSchema.validate(req.body);
+
+if(error){
+    return res.status(400).json({message: error.details[0].message});
+}
     try {
         let { taskName, TaskUserName } = req.body;
-
-        if (!taskName || !TaskUserName) {
-            res.status(400).send("Task name or User Name is missing Brother!!")
-        }
-
         let newTask = await tasks.create({ taskName, TaskUserName });
 
         res.status(201).send(newTask)
@@ -35,9 +37,11 @@ async function getTaskById(req, res) {
     try {
         let task = await tasks.findById(req.params.id);
 
-        if (!task) {
-            res.status(404).send("Task Not Found!")
-        }
+     if(!task){
+    const err = new Error("Task not Found!")
+    err.statusCode = 404;
+    return next(err);
+}
         res.send(task)
     }
     catch {
@@ -50,6 +54,12 @@ async function getTaskById(req, res) {
 
 async function updateTask(req, res) {
 
+const {error} = taskValidationSchema.validate(req.body);
+
+if(error){
+    return res.status(400).json({message: error.details[0].message})
+}
+
     try {
 
         let task = await tasks.findByIdAndUpdate(
@@ -59,9 +69,11 @@ async function updateTask(req, res) {
 
         )
 
-        if (!task) {
-            res.status(404).send("Task not Found!!")
-        }
+    if(!task){
+    const err = new Error("Task not Found!");
+    err.statusCode = 404;
+    return next(err); 
+}
 
         res.send("Task Updated", task);
 
@@ -78,9 +90,11 @@ async function deletTaskbyId(req, res, next) {
     try {
         let task = await tasks.findByIdAndDelete(req.params.id);
 
-        if (!task) {
-            res.status(404).send("Task Not Found!")
-        }
+    if(!task){
+    const err = new Error("Task not Found!")
+    err.statusCode = 404;
+    return next(err);
+}
         else {
             res.send({ message: "Task deleted:", task })
 
@@ -94,7 +108,4 @@ async function deletTaskbyId(req, res, next) {
 
 }
 
-
-
-// res.status(500).json({message: error.message})
 module.exports = { createTodo, getAllTasks, getTaskById, updateTask, deletTaskbyId }

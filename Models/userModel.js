@@ -10,7 +10,12 @@ userName:{
 email: {
     type: String,
     reuired: true
-}
+},
+
+    password: {
+        type: String,
+        required: true
+    }
 
 })
 

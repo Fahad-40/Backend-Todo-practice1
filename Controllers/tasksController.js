@@ -3,11 +3,11 @@ let taskValidationSchema = require("../Validator/taskValidator");
 
 async function createTodo(req, res) {
 
-let {error} = taskValidationSchema.validate(req.body);
+    let { error } = taskValidationSchema.validate(req.body);
 
-if(error){
-    return res.status(400).json({message: error.details[0].message});
-}
+    if (error) {
+        return res.status(400).json({ message: error.details[0].message });
+    }
     try {
         let { taskName, TaskUserName } = req.body;
         let newTask = await tasks.create({ taskName, TaskUserName });
@@ -17,7 +17,6 @@ if(error){
     catch {
         next(error);
     }
-
 
 }
 
@@ -37,11 +36,11 @@ async function getTaskById(req, res) {
     try {
         let task = await tasks.findById(req.params.id);
 
-     if(!task){
-    const err = new Error("Task not Found!")
-    err.statusCode = 404;
-    return next(err);
-}
+        if (!task) {
+            const err = new Error("Task not Found!")
+            err.statusCode = 404;
+            return next(err);
+        }
         res.send(task)
     }
     catch {
@@ -54,11 +53,11 @@ async function getTaskById(req, res) {
 
 async function updateTask(req, res) {
 
-const {error} = taskValidationSchema.validate(req.body);
+    const { error } = taskValidationSchema.validate(req.body);
 
-if(error){
-    return res.status(400).json({message: error.details[0].message})
-}
+    if (error) {
+        return res.status(400).json({ message: error.details[0].message })
+    }
 
     try {
 
@@ -69,11 +68,11 @@ if(error){
 
         )
 
-    if(!task){
-    const err = new Error("Task not Found!");
-    err.statusCode = 404;
-    return next(err); 
-}
+        if (!task) {
+            const err = new Error("Task not Found!");
+            err.statusCode = 404;
+            return next(err);
+        }
 
         res.send("Task Updated", task);
 
@@ -90,11 +89,11 @@ async function deletTaskbyId(req, res, next) {
     try {
         let task = await tasks.findByIdAndDelete(req.params.id);
 
-    if(!task){
-    const err = new Error("Task not Found!")
-    err.statusCode = 404;
-    return next(err);
-}
+        if (!task) {
+            const err = new Error("Task not Found!")
+            err.statusCode = 404;
+            return next(err);
+        }
         else {
             res.send({ message: "Task deleted:", task })
 

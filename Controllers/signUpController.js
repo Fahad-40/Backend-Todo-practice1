@@ -1,14 +1,19 @@
 const bcrypt = require("bcrypt");
 const User = require('../Models/userModel');
+const SignUpValidator = require("../Validator/signUp")
 
-const signUp = async (req, res, next) =>{
-
+const signUp = async (req, res, next) => {
     try {
-        const { name, email, password } = req.body;
+        const { error } = SignUpValidator.validate(req.body);
+        if (error) {
+            return res.status(400).json({ message: "Any of the Credential is missing brother! Please fill all the credentials." })
+        }
+
+        const { userName, email, password } = req.body;
         const saltRounds = 2;
         const hashedPassword = await bcrypt.hash(password, saltRounds);
         const newUser = await User.create({
-            name,
+            userName,
             email,
             password: hashedPassword
         })
@@ -19,5 +24,6 @@ const signUp = async (req, res, next) =>{
     catch (err) {
         next(err)
     }
-
 };
+
+module.exports = {signUp}

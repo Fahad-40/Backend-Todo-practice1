@@ -1,4 +1,4 @@
-let users = require("../Models/UserModel")
+let users = require("../Models/userModel")
 
 async function createUser(req , res) {
     

@@ -1,4 +1,5 @@
 let express = require("express");
+let protect = require("../Middlewares/authMiddleware");
 
 let app = express();
 
@@ -6,7 +7,7 @@ let router = express.Router();
 
 let taskController = require("../Controllers/tasksController");
 
-router.get("/" , taskController.getAllTasks);
+router.get("/" , protect , taskController.getAllTasks);
 router.post("/" , taskController.createTodo)
 router.get('/:id', taskController.getTaskById);
 router.put('/:id', taskController.updateTask);

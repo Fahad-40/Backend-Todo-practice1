@@ -13,6 +13,7 @@ async function createTodo(req, res) {
         let newTask = await tasks.create({ taskName, TaskUserName });
 
         res.status(201).send(newTask)
+        console.log(authHeader)
     }
     catch {
         next(error);

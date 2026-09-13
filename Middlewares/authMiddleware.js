@@ -6,7 +6,7 @@ const protect = (req, res, next) => {
     console.log(authHeader)
 
     if (!authHeader) {
-        return res.status(401).json({ message: "No Tokens Provided Man!" })
+        return res.status(401).json({ message: "No Token Provided Man!" })
     }
 
     const token = authHeader.split(" ")[1];

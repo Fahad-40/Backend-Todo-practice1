@@ -4,7 +4,6 @@ const logInValidator = require("../Validator/logInValidator");
 const jwt = require("jsonwebtoken");
 require('dotenv').config();
 
-
 const logIn = async (req, res, next) => {
 
     try {

@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-
+require('dotenv').config();
 const protect = (req, res, next) => {
 
     const authHeader = req.headers.authorization;
@@ -16,7 +16,8 @@ const protect = (req, res, next) => {
         req.userId = decoded.id;
         next();
     }
-    catch {
+    catch(err) {
+          console.log("JWT Verification Error:", err.message);
         return res.status(401).json({ message: "Invalid or Expired Token!" })
     }
 

@@ -2,7 +2,7 @@
 let express = require("express");
 let app = express();
 let mongoose = require("mongoose");
-let PORT = 3000;
+// let PORT = 3000;
 let userRoutes = require("./Routes/userRoutes");
 let taskRoutes = require("./Routes/taskRoutes");
 let authRoutesSignUp = require("./Routes/signUpRoutes");
@@ -28,6 +28,6 @@ mongoose.connect("mongodb://localhost:27017/mongoosePrcTodo1")
 .catch(()=> {
     console.log("Mongo db found an error!")
 })
-app.listen(PORT , ()=>{
-    console.log(`App is listening on ${PORT}`)
+app.listen(process.env.PORT , ()=>{
+    console.log(`App is listening on ${process.env.PORT}`)
 })

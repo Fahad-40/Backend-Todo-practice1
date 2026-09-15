@@ -8,6 +8,9 @@ let taskRoutes = require("./Routes/taskRoutes");
 let authRoutesSignUp = require("./Routes/signUpRoutes");
 let authRouteslogIn = require("./Routes/LogInRoute")
 
+const environment = process.env.NODE_ENV || "development";
+require("dotenv").config({path: `.env.${environment}`})
+
 let errorHandlerMiddleware = require("./Middlewares/errorHandler")
 
 app.use(express.json());

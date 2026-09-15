@@ -3,7 +3,7 @@ const userModel = require("../Models/practiceUserModel");
 
 const signUpValidator = require("../Validator/practiceSignupValidator");
 
-const signUp = async (req, res, next) {
+const signUp = async (req, res, next) => {
 
     try {
         const { error } = signUpValidator.validate(req.body);

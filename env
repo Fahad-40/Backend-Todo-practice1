@@ -1,0 +1,5 @@
+MONGO_URI=mongodb://localhost:27017/mongoosePrcTodo1
+PORT=3000;
+JWT_SECRET=bce5185cddcdf9e82dd6ed63cdcffade1e2cb97442b540f611117f94001775a1
+
+

@@ -15,7 +15,7 @@ let errorHandlerMiddleware = require("./Middlewares/errorHandler")
 
 app.use(express.json());
 
-app.use("/users",userRoutes);
+
 app.use("/tasks",taskRoutes);
 app.use("/api/authSignUp",authRoutesSignUp);
 app.use("/api/authlogin",authRouteslogIn);
